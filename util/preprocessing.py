@@ -49,7 +49,6 @@ class sparse_filtering_normalizer(normalizer):
 
     def denormalize(self, x):
         data = numpy.array(x, dtype=numpy.float64)
-#        print "CHECK", data, data.shape
         if len(data.shape) == 1:
             data = data * self.row_norms
         else:

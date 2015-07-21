@@ -9,6 +9,6 @@ setup(
     url='',
     license='MIT licence, see LICENCE.txt',
     description='Assorted machine learning algorithms',
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
     zip_safe=False,
 )

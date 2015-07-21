@@ -5,7 +5,7 @@ setup(
     version='0.1.0',
     author=u'Andrew Rider',
     author_email='andrew.rider',
-    packages=['numpy'],
+    packages=['riderml'],
     url='',
     license='MIT licence, see LICENCE.txt',
     description='Assorted machine learning algorithms',

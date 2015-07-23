@@ -18,4 +18,10 @@ setup(
     author_email='andrew.rider',
     include_package_data=True,
     packages=find_packages(exclude=['test*']),
+    install_requires = [
+        'scipy',
+        'numpy',
+        'scikit-learn',
+        'matplotlib'
+    ],
 )

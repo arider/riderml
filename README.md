@@ -24,7 +24,7 @@ gradient_descent.py
 
 # Visualization
 Presently there are two approaches to visualization present in the repo. I originally used matplotlib but I have been increasingly using Bokeh.
-![SGD]("https://github.com/arider/riderml/blob/master/images/gradient_descent.png?raw=true")
+![SGD]("https://raw.github.com/arider/riderml/master/images/gradient_descent.png")
 
 
 # Requirements

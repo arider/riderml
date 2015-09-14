@@ -21,6 +21,8 @@ dbn.py
 gradient_descent.py
  - iRPROP- gradient descent with mini-batches or full data set
  - adagrad
+factorization_machines.py
+ - 2-way factorization machines with adaptive learning rate (TODO: no regularization yet)
 
 # Visualization
 Presently there are two approaches to visualization present in the repo. I originally used matplotlib but I have been increasingly using Bokeh.

@@ -5,7 +5,10 @@ from ...util.preprocessing import (
     as_matrix,
     as_row,
     sparse_filtering_normalizer,
-    bin_data)
+    bin_data,
+    sparse_encoding,
+    sparse_implicit_encoding,
+    row_indicators)
 
 
 class SparseFilteringNormNormalizerTest(TestCase):
@@ -99,6 +102,98 @@ class BinDataTest(TestCase):
         bins = bin_data(x, 5)
         self.assertEqual(bins[0], 10)
         self.assertEqual(bins[1:].sum(), 0)
+
+
+class RowIndicatorsTest(TestCase):
+    def test(self):
+        data = numpy.array([[2, 4],
+                            [4, 6],
+                            [6, 8]])
+        solution = numpy.array([[1.,  0.,  0.],
+                                [1.,  0.,  0.],
+                                [0.,  1.,  0.],
+                                [0.,  1.,  0.],
+                                [0.,  0.,  1.],
+                                [0.,  0.,  1.]])
+        indicators = numpy.array(row_indicators(data, 2).todense())
+
+        for i in range(len(indicators)):
+            self.assertItemsEqual(solution[i], indicators[i])
+
+    def test_again(self):
+        data = numpy.array([[1, 2, 3],
+                            [4, 5, 6]])
+        solution = numpy.array([[1, 0],
+                                [1, 0],
+                                [1, 0],
+                                [0, 1],
+                                [0, 1],
+                                [0, 1]])
+
+        out = numpy.array(row_indicators(data, 3).todense())
+
+        for i in range(len(out)):
+            self.assertItemsEqual(solution[i], out[i])
+
+
+class SparseEncodingIndicatorsTest(TestCase):
+    def test(self):
+        data = numpy.array([[2, 4],
+                            [4, 6],
+                            [6, 8]])
+        solution = numpy.array([[1.,  0.],
+                                [0.,  1.],
+                                [1.,  0.],
+                                [0.,  1.],
+                                [1.,  0.],
+                                [0.,  1.]])
+        indicators = numpy.array(sparse_encoding(data, 2).todense())
+
+        for i in range(len(indicators)):
+            self.assertItemsEqual(solution[i], indicators[i])
+
+    def test_not_binary(self):
+        data = numpy.array([[1, 2, 3],
+                            [4, 5, 6]])
+        solution = numpy.array([[1., 0., 0.],
+                                [0., 2., 0.],
+                                [0., 0., 3.],
+                                [4., 0., 0.],
+                                [0., 5., 0.],
+                                [0., 0., 6.]])
+
+        out = numpy.array(sparse_encoding(data, False).todense())
+
+        for i in range(len(out)):
+            self.assertItemsEqual(solution[i], out[i])
+
+
+class SparseImplicitEncodingTest(TestCase):
+    def test_self_interactions_binary(self):
+        data = numpy.array([[1, 1],
+                            [1, 0],
+                            [1, 1]])
+
+        solution = numpy.array([[.5, .5],
+                                [.5, .5],
+                                [1., 0.],
+                                [1., 0.],
+                                [.5, .5],
+                                [.5, .5]])
+
+        out = numpy.array(sparse_implicit_encoding(data).todense())
+        for i in range(len(out)):
+            self.assertItemsEqual(solution[i], out[i])
+
+    def test_self_interactions_not_binary(self):
+        data = numpy.array([[2, 4],
+                            [4, 0],
+                            [6, 8]])
+        out = numpy.array(sparse_implicit_encoding(data, False).todense())
+        self.assertAlmostEqual(out[0, 0], .333, 2)
+        self.assertAlmostEqual(out[0, 1], .666, 2)
+        self.assertAlmostEqual(out[4, 0], .428, 2)
+
 
 if __name__ == '__main__':
     unittest.main()

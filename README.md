@@ -23,11 +23,16 @@ gradient_descent.py
  - adagrad
 factorization_machines.py
  - 2-way factorization machines with adaptive learning rate (TODO: no regularization yet)
+lda.py
+ - latent dirichlet allocation
+dpmm.py
+ - dirichlet process mixture models with arbitrary mixture distributions (only guassian and multinomial implemented) -- see Neal 2006
 
 # Visualization
 Presently there are two approaches to visualization present in the repo. I originally used matplotlib but I have been increasingly using Bokeh.
 ![SGD](images/gradient_descent.png)
 
+![SGD](images/dpmm.png)
 
 # Requirements
 You'll need scipy, numpy, matplotlib, and bokeh.

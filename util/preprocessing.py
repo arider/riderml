@@ -1,6 +1,6 @@
 import numpy
 from abc import ABCMeta, abstractmethod
-from scipy.sparse import lil_matrix
+from scipy.sparse import dok_matrix
 
 
 class normalizer:
@@ -113,7 +113,7 @@ def row_indicators(x, n_features):
     n_features into disjoint indicators.
     """
     # a column for each row indicator
-    out = lil_matrix((x.shape[0] * n_features, x.shape[0]))
+    out = dok_matrix((x.shape[0] * n_features, x.shape[0]))
 
     # fill in the row indicators
     for i in range(x.shape[0]):
@@ -129,7 +129,7 @@ def sparse_encoding(x, binary=True):
     Take an input data set and convert it into a sparse encoding as in Rendle,
     "Factorization Machines"
     """
-    out = lil_matrix((x.shape[0] * x.shape[1], x.shape[1]))
+    out = dok_matrix((x.shape[0] * x.shape[1], x.shape[1]))
 
     # diagonalize the values
     for ri in range(x.shape[0]):
@@ -149,7 +149,7 @@ def sparse_implicit_encoding(x, binary=True):
     directly related features -- example: you might compare a movie to all
     other movies watched by the same individual
     """
-    out = lil_matrix((x.shape[0] * x.shape[1], x.shape[1]))
+    out = dok_matrix((x.shape[0] * x.shape[1], x.shape[1]))
     # encode 'self' interactions
     for ri in range(x.shape[0]):
         for ci in range(x.shape[1]):

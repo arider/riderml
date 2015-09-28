@@ -106,23 +106,18 @@ class BinDataTest(TestCase):
 
 class RowIndicatorsTest(TestCase):
     def test(self):
-        data = numpy.array([[2, 4],
-                            [4, 6],
-                            [6, 8]])
         solution = numpy.array([[1.,  0.,  0.],
                                 [1.,  0.,  0.],
                                 [0.,  1.,  0.],
                                 [0.,  1.,  0.],
                                 [0.,  0.,  1.],
                                 [0.,  0.,  1.]])
-        indicators = numpy.array(row_indicators(data, 2).todense())
+        indicators = numpy.array(row_indicators(3, 2).todense())
 
         for i in range(len(indicators)):
             self.assertItemsEqual(solution[i], indicators[i])
 
     def test_again(self):
-        data = numpy.array([[1, 2, 3],
-                            [4, 5, 6]])
         solution = numpy.array([[1, 0],
                                 [1, 0],
                                 [1, 0],
@@ -130,7 +125,7 @@ class RowIndicatorsTest(TestCase):
                                 [0, 1],
                                 [0, 1]])
 
-        out = numpy.array(row_indicators(data, 3).todense())
+        out = numpy.array(row_indicators(2, 3).todense())
 
         for i in range(len(out)):
             self.assertItemsEqual(solution[i], out[i])

@@ -107,19 +107,20 @@ def bin_data(x, n_bins):
     return bins
 
 
-def row_indicators(x, n_features):
+def row_indicators(n_rows, n_features):
     """
     Set up a sparse matrix of row indicators for a matrix that encodes
     n_features into disjoint indicators.
     """
     # a column for each row indicator
-    out = dok_matrix((x.shape[0] * n_features, x.shape[0]))
+
+    out = dok_matrix((n_rows * n_features, n_rows))
 
     # fill in the row indicators
-    for i in range(x.shape[0]):
-        start = i * x.shape[1]
-        end = (i + 1) * x.shape[1]
-        out[start:end, i] = numpy.ones([x.shape[1], 1])
+    for i in range(n_rows):
+        start = i * n_features
+        end = (i + 1) * n_features
+        out[start:end, i] = 1
 
     return out
 
@@ -161,5 +162,17 @@ def sparse_implicit_encoding(x, binary=True):
                 values = x[ri, :]
             out[x.shape[1] * ri + ci, start:end] = (
                 values / float(values.sum()))
+
+    return out
+
+
+def sparse_target_encoding(y, n_features):
+    """
+    Take the response variable and encode it to match the output from the
+    sparse_encoding function
+    """
+    out = []
+    for el in y:
+        out.extend([el] * (n_features - 1))
 
     return out

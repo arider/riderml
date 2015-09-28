@@ -193,7 +193,7 @@ class factorization_machine(model):
                                                        feature_count_index] *
                                    instance.data[feature_count_index] ** 2)
                     factor_gradient[factor_index, feature_count_index] += (
-                        loss[0, instance_index] *
+                        loss[instance_index] *
                         (first_part - second_part))
 
         factor_gradient /= instances.shape[0]
@@ -231,8 +231,7 @@ class factorization_machine(model):
         # sum over k
         factor_part = .5 * (first_part
                             - factors_over_features_sq).sum(axis=1)
-
         # the whole thing
         predicted = numpy.array(linear_part + factor_part.T)
 
-        return predicted
+        return predicted.squeeze(0)

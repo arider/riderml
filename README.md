@@ -14,15 +14,20 @@ Currently the project contains feed-forward neural networks and gradient descent
 #### Neural networks
 - a generic layer model and the functions to use it as a component of a neural network.
 - backprop with irprop-
+- 
 ###### Autoencoders
 generic autoencoder with optional normalization for sparse denoising autoencoders.
+
 ###### Deep belief networks
 deep belief networks -- arbitrary number of layers with greedy autoencoder pretraining.
+
 #### Gradient descent
 - iRPROP- gradient descent with mini-batches or full data set
 - adagrad
+- 
 #### Factorization Machines
 2-way factorization machines with adaptive learning rate (TODO: no regularization yet)
+
 #### Topic models
 - latent dirichlet allocation
 - dirichlet process mixture models with arbitrary mixture distributions (only guassian and multinomial implemented) -- see Neal 2006

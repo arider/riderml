@@ -41,3 +41,15 @@ class online:
     @abstractmethod
     def update_model(self, data, y):
         pass
+
+
+class ensemble:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def fit(self, data, y):
+        pass
+
+    @abstractmethod
+    def predict(self, data):
+        pass

@@ -1,6 +1,7 @@
 from ..base import ensemble
 import numpy
 from ..util.preprocessing import as_matrix
+from sklearn.metrics import accuracy_score
 
 
 class random_subspaces(ensemble):
@@ -142,3 +143,9 @@ class random_subspaces(ensemble):
         # Get mean predictions
         aggregate /= count
         return aggregate, count
+
+    def score(self, x, y):
+        predicted = self.predict(x)
+        actual = y
+
+        return accuracy_score(actual, predicted)
